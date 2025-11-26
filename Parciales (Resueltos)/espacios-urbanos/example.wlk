@@ -159,21 +159,20 @@ tito.profesion(jardinero)
 class Trabajo {
   const fecha
   const trabajador
-  const espacioUrbano
   const duracion
   const costo
   const profesion
 
-  method registrar() {
+  method registrar(espacioUrbano) {
     if (!trabajador.puedeTrabajarEn(espacioUrbano)) {
       throw new DomainException(message = "El trabajador no puede realizar este trabajo en el espacio urbano")
     }
     trabajador.realizaTrabajoEn(espacioUrbano)
   }
 
-  method esHeavy() = profesion.esHeavyParaTrabajo(self, espacioUrbano)
+  method esHeavy(espacioUrbano) = profesion.esHeavyParaTrabajo(self, espacioUrbano)
 
-  method cuestaMasDe(monto) = profesion.costoDelTrabajoEn(trabajador, espacioUrbano) > monto
+  method cuestaMasDe(monto, espacioUrbano) = profesion.costoDelTrabajoEn(trabajador, espacioUrbano) > monto
 
   method esReciente() = new Date() - fecha < 30
 }
