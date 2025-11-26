@@ -79,7 +79,8 @@ class EspacioUrbano {
   method aumentarValuacionFijaEn(monto) {
     valuacion += monto
   }
-  method deUsoIntensivo() = trabajosRealizados.filter {trabajo => trabajo.esReciente() && trabajo.esHeavy()}.size() > 5
+  method deUsoIntensivo(trabajosRealizados, profesion) = trabajosRealizados.filter {trabajo => trabajo.esReciente() && trabajo.esHeavy(profesion)}.size() > 5
+}
 }
 
 class Plaza inherits EspacioUrbano {
@@ -158,21 +159,21 @@ tito.profesion(jardinero)
 
 class Trabajo {
   const fecha
-  const trabajador
   const duracion
   const costo
-  const profesion
+  const trabajador
+  const espacioUrbano
 
-  method registrar(espacioUrbano) {
+  method registrar() {
     if (!trabajador.puedeTrabajarEn(espacioUrbano)) {
       throw new DomainException(message = "El trabajador no puede realizar este trabajo en el espacio urbano")
     }
     trabajador.realizaTrabajoEn(espacioUrbano)
   }
 
-  method esHeavy(espacioUrbano) = profesion.esHeavyParaTrabajo(self, espacioUrbano)
+  method esHeavy(profesion) = profesion.esHeavyParaTrabajo(trabajador, espacioUrbano)
 
-  method cuestaMasDe(monto, espacioUrbano) = profesion.costoDelTrabajoEn(trabajador, espacioUrbano) > monto
+  method cuestaMasDe(monto, profesion) = profesion.costoDelTrabajo(trabajador, espacioUrbano) > monto
 
   method esReciente() = new Date() - fecha < 30
 }
