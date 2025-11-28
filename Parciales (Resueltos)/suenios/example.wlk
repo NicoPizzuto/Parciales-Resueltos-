@@ -98,7 +98,7 @@ class Persona {
     felicidad += cantidad
   }
 
-  method esFeliz() = felicidad > self.sueniosPendientes().sum { suenio => suenio.felicidonios() } 
+  method esFeliz() = felicidad > self.sueniosPendientes().sum {suenio => suenio.felicidonios()} 
 
   method sueniosAmbiciosos() = sueniosQueQuiereCumplir.filter {suenio => suenio.esAmbicioso()}
 
