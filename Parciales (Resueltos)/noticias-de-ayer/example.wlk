@@ -57,7 +57,7 @@ class Noticia {
     method esImportante() = gradoDeImportancia >= 8
     method esReciente() = new Date() - fechaPublicacion < 3
     method esSensacionalista() = self.tituloContiene(["espectacular", "increible", "grandioso"])
-    method tituloContiene(palabras) = palabras.any({palabra => titulo.contiene(palabra)})
+    method tituloContiene(palabras) = palabras.any({palabra => titulo.contains(palabra)})
     method aptaParaVago() = contenido.words().length() < 100
     method tituloComienzaCon(letra) = titulo.startsWith(letra)
     method esPreferidaPorAutor() = autor.prefiere(self)
@@ -98,7 +98,7 @@ class Reportaje inherits Noticia {
 
 class Cobertura inherits Noticia {
     const property noticias = []
-     override method esCopadaEspecifica() = noticias.all{noticia => noticia.esCopada()}
+    override method esCopadaEspecifica() = noticias.all{noticia => noticia.esCopada()}
 }
 
 class Periodista {
@@ -109,7 +109,7 @@ class Periodista {
     method esReciente() = new Date() - fechaDeIngreso < 365
 }
 
-object noticiaCopada{
+object noticiaCopada {
     method prefiere(noticia) = noticia.esCopada()
 }
 
@@ -117,11 +117,11 @@ object noticiaSensacionalista {
     method prefiere(noticia) = noticia.esSensacionalista()
 }
 
-object vago{
+object vago {
     method prefiere(noticia) = noticia.aptaParaVago()
 }
 
-object joseDeZer{
+object joseDeZer {
     method prefiere(noticia) = noticia.tituloComienzaCon("T")
 }
 
@@ -129,7 +129,7 @@ object medioDeComunicacion {
     const noticias = []
     
     method validarCantidadDeNoticiasQueNoPrefiere(noticia){
-        if(!noticia.esPreferidaPorAutor() && self.limiteDeNoPreferidoPara(noticia.autor()))
+        if (!noticia.esPreferidaPorAutor() && self.limiteDeNoPreferidoPara(noticia.autor()))
             throw new DomainException(message = "ya publicaste 2 noticias que no preferis")
     }
 
