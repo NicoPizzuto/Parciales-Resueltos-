@@ -155,7 +155,7 @@ class Combinado {
 }
 
 object osky inherits Persona {
-    override method laPasaBienPersonalmente() = true
+  override method laPasaBienPersonalmente() = true
 }
 
 object moni inherits Persona {
