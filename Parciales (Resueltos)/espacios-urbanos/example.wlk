@@ -68,7 +68,6 @@ class EspacioUrbano {
   var property tieneValladoQueSeCierraDeNoche
   var valuacion
   const nombre
-  const trabajosRealizados = []
   method esGrande() = superficieTotal > 50 && self.esGrandeEspecifico()
   method esGrandeEspecifico()
   method esVerde()
@@ -80,7 +79,6 @@ class EspacioUrbano {
     valuacion += monto
   }
   method deUsoIntensivo(trabajosRealizados, profesion) = trabajosRealizados.filter {trabajo => trabajo.esReciente() && trabajo.esHeavy(profesion)}.size() > 5
-}
 }
 
 class Plaza inherits EspacioUrbano {
